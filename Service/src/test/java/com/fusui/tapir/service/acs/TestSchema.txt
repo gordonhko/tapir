@@ -1,0 +1,1179 @@
+	private void initPolicyAttributes() throws SQLException, FoundryException {
+		
+		PAPService pmp = PAPService.getInstance();
+		// create Policy Attribute
+		VoMetaOperand attr = null;
+		attr = new VoMetaOperand();
+		attr.setAttrName("$Ply.PolicyId");
+		attr.setAttrUIName("Policy Name");
+		// attr.setPossibleValues("");
+		attr.setValueType(FoundryConstants.DATA_TYPE_STRING);
+		attr.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+		attr.setAttrDBName("policytable.policy_id");
+		pmp.createAttributeMeta(attr);
+
+		attr = new VoMetaOperand();
+		attr.setAttrName("$Ply.PolicyDescription");
+		attr.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		attr.setAttrUIName("Policy Description");
+		// attr.setPossibleValues("");
+		attr.setValueType(FoundryConstants.DATA_TYPE_STRING);
+		attr.setAttrDBName("policytable.policy_desc");
+		pmp.createAttributeMeta(attr);
+
+		attr = new VoMetaOperand();
+		attr.setAttrName("$Ply.PolicyType");
+		attr.setAttrUIName("Policy Type");
+		// attr.setPossibleValues(getAllPolicyTypeNames());
+		attr.setValueType(FoundryConstants.DATA_TYPE_STRING);
+		attr.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+		attr.setAttrDBName("policytable.policy_type");
+		pmp.createAttributeMeta(attr);
+
+		attr = new VoMetaOperand();
+		attr.setAttrName("$Ply.PolicyActions");
+		attr.setAttrUIName("Policy Actions");
+		// attr.setPossibleValues(getAllPolicyActionNames());
+		attr.setValueType(FoundryConstants.DATA_TYPE_STRING);
+		attr.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_MULTIPLE_SELECTION);
+		attr.setAttrDBName("policytable.policy_actions");
+		pmp.createAttributeMeta(attr);
+
+		attr = new VoMetaOperand();
+		attr.setAttrName("$Ply.PolicyRca");
+		attr.setAttrUIName("Policy Rule Combination Algorithm");
+		// attr.setPossibleValues("");
+		attr.setValueType(FoundryConstants.DATA_TYPE_STRING);
+		attr.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+		attr.setAttrDBName("policytable.policy_rca");
+		pmp.createAttributeMeta(attr);
+
+		attr = new VoMetaOperand();
+		attr.setAttrName("$Ply.PolicyCategory");
+		attr.setAttrUIName("Policy Category");
+		// attr.setPossibleValues(getAllPolicyCategoryNames());
+		attr.setValueType(FoundryConstants.DATA_TYPE_STRING);
+		attr.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+		attr.setAttrDBName("policytable.policy_category");
+		pmp.createAttributeMeta(attr);
+		
+	}
+
+	
+		
+	private void initEnvironmentAttributes() throws SQLException, FoundryException {
+		PAPService pmp = PAPService.getInstance();
+
+		// create Environment Attribute
+		VoMetaOperand attr = null;
+		attr = new VoMetaOperand();
+		attr.setAttrName("$Env.CurrentTime");
+		attr.setAttrUIName("Current Time");
+		// attr.setPossibleValues("");
+		attr.setValueType(FoundryConstants.DATA_TYPE_DATETIME);
+		attr.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TIME);
+		attr.setAttrDBName("$all"); // tell ui used for both user and doc
+		pmp.createAttributeMeta(attr);
+
+		attr = new VoMetaOperand();
+		attr.setAttrName("$Env.CurrentWeekday");
+		attr.setAttrUIName("Current Weekday");
+		// attr.setPossibleValues("");
+		attr.setValueType(FoundryConstants.DATA_TYPE_STRING);
+		attr.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+		attr.setAttrDBName("$all"); // tell ui used for both user and doc
+		pmp.createAttributeMeta(attr);
+
+//		attr = new VoAttributeMeta();
+//		attr.setAttrName("$Env.Longitude");
+//		attr.setAttrUIName("Location Longitude");
+//		// attr.setPossibleValues("");
+//		attr.setValueType(FoundryUtilConst.DATA_TYPE_DOUBLE);
+//		attr.setSelectionType(FoundryUtilConst.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+//		attr.setAttrDBName("$user"); // tell UI this is used for user category
+//		pmp.createAttributeMeta(attr);
+//
+//		attr = new VoAttributeMeta();
+//		attr.setAttrName("$Env.Latitude");
+//		attr.setAttrUIName("Location Latitude");
+//		// attr.setPossibleValues("");
+//		attr.setValueType(FoundryUtilConst.DATA_TYPE_DOUBLE);
+//		attr.setSelectionType(FoundryUtilConst.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+//		attr.setAttrDBName("$user"); // tell UI this is used for user category
+//		pmp.createAttributeMeta(attr);
+	}
+	
+	private void initStringOperators() throws SQLException, FoundryException {
+
+		PAPService pmp = PAPService.getInstance();
+
+		VoMetaOperator oper = null;
+
+		// **********************************************************************
+		// String - Text Field
+		// **********************************************************************
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_STRING);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName("Equal");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.StringOperator");
+		oper.setMethodName("Equal");
+		oper.setOperatorUIName("Equal");
+		oper.setOperatorDBName("=");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_STRING);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName("NotEqual");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.StringOperator");
+		oper.setMethodName("NotEqual");
+		oper.setOperatorUIName("Not Equal");
+		oper.setOperatorDBName("!=");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_STRING);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName("Contain");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.StringOperator");
+		oper.setMethodName("Contain");
+		oper.setOperatorUIName("Contain");
+		oper.setOperatorDBName("like");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_STRING);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName("NotContain");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.StringOperator");
+		oper.setMethodName("NotContain");
+		oper.setOperatorUIName("Not Contain");
+		oper.setOperatorDBName("not like");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_STRING);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName("IsEmpty");
+		oper.setNumOfOperands(1);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.StringOperator");
+		oper.setMethodName("IsEmpty");
+		oper.setOperatorUIName("Is Empty");
+		oper.setOperatorDBName("is null");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_STRING);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName("IsAnything");
+		oper.setNumOfOperands(1);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.StringOperator");
+		oper.setMethodName("IsAnything");
+		oper.setOperatorUIName("Is Anything");
+		oper.setOperatorDBName("is not null");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		// **********************************************************************
+		// String - Single Selection
+		// **********************************************************************
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_STRING);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+		oper.setOperatorName("Equal");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.StringOperator");
+		oper.setMethodName("Equal");
+		oper.setOperatorUIName("Equal");
+		oper.setOperatorDBName("=");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_STRING);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+		oper.setOperatorName("NotEqual");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.StringOperator");
+		oper.setMethodName("NotEqual");
+		oper.setOperatorUIName("Not Equal");
+		oper.setOperatorDBName("!=");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_STRING);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+		oper.setOperatorName("IsEmpty");
+		oper.setNumOfOperands(1);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.StringOperator");
+		oper.setMethodName("IsEmpty");
+		oper.setOperatorUIName("Is Empty");
+		oper.setOperatorDBName("is null");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_STRING);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+		oper.setOperatorName("IsAnything");
+		oper.setNumOfOperands(1);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.StringOperator");
+		oper.setMethodName("IsAnything");
+		oper.setOperatorUIName("Is Anything");
+		oper.setOperatorDBName("is not null");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+		
+		// Need a new value type
+//		oper = new VoOperatorMeta();
+//		oper.setValueType(FoundryUtilConst.DATA_TYPE_STRING);
+//		oper.setSelectionType(FoundryUtilConst.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+//		oper.setOperatorName("In");
+//		oper.setNumOfOperands(2);
+//		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.StringOperator");
+//		oper.setMethodName("In");
+//		oper.setOperatorUIName("In");
+//		oper.setOperatorDBName("IN");
+//		oper.setCriteriaEnable("true");
+//		pmp.createOperatorMeta(oper);
+//
+//		oper = new VoOperatorMeta();
+//		oper.setValueType(FoundryUtilConst.DATA_TYPE_STRING);
+//		oper.setSelectionType(FoundryUtilConst.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+//		oper.setOperatorName("NotIn");
+//		oper.setNumOfOperands(2);
+//		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.StringOperator");
+//		oper.setMethodName("NotIn");
+//		oper.setOperatorUIName("Not In");
+//		oper.setOperatorDBName("NOT IN");
+//		oper.setCriteriaEnable("true");
+//		pmp.createOperatorMeta(oper);
+
+
+		// **********************************************************************
+		// String - Multiple Selection
+		// **********************************************************************
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_STRING);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_MULTIPLE_SELECTION);
+		oper.setOperatorName("In");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.StringOperator");
+		oper.setMethodName("In");
+		oper.setOperatorUIName("In");
+		oper.setOperatorDBName("IN");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_STRING);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_MULTIPLE_SELECTION);
+		oper.setOperatorName("NotIn");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.StringOperator");
+		oper.setMethodName("NotIn");
+		oper.setOperatorUIName("Not In");
+		oper.setOperatorDBName("NOT IN");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_STRING);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_MULTIPLE_SELECTION);
+		oper.setOperatorName("IsEmpty");
+		oper.setNumOfOperands(1);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.StringOperator");
+		oper.setMethodName("IsEmpty");
+		oper.setOperatorUIName("Is Empty");
+		oper.setOperatorDBName("is null");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_STRING);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_MULTIPLE_SELECTION);
+		oper.setOperatorName("IsAnything");
+		oper.setNumOfOperands(1);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.StringOperator");
+		oper.setMethodName("IsAnything");
+		oper.setOperatorUIName("Is Anything");
+		oper.setOperatorDBName("is not null");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+	}
+
+	private void initIntegerOperators() throws SQLException, FoundryException {
+
+		PAPService pmp = PAPService.getInstance();
+		VoMetaOperator oper = null;
+
+		// **********************************************************************
+		// Integer - Text Field
+		// **********************************************************************
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_INTEGER);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName("+");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.IntegerOperator");
+		oper.setMethodName("Add");
+		oper.setOperatorUIName("+");
+		oper.setOperatorDBName("+");
+		oper.setCriteriaEnable("false");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_INTEGER);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName("-");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.IntegerOperator");
+		oper.setMethodName("Subtract");
+		oper.setOperatorUIName("-");
+		oper.setOperatorDBName("-");
+		oper.setCriteriaEnable("false");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_INTEGER);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName("*");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.IntegerOperator");
+		oper.setMethodName("Multiple");
+		oper.setOperatorUIName("*");
+		oper.setOperatorDBName("*");
+		oper.setCriteriaEnable("false");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_INTEGER);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName("/");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.IntegerOperator");
+		oper.setMethodName("Divide");
+		oper.setOperatorUIName("/");
+		oper.setOperatorDBName("/");
+		oper.setCriteriaEnable("false");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_INTEGER);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName("==");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.IntegerOperator");
+		oper.setMethodName("Equal");
+		oper.setOperatorUIName("==");
+		oper.setOperatorDBName("=");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_INTEGER);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName("!=");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.IntegerOperator");
+		oper.setMethodName("NotEqual");
+		oper.setOperatorUIName("!=");
+		oper.setOperatorDBName("!=");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_INTEGER);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName(">");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.IntegerOperator");
+		oper.setMethodName("LargerThan");
+		oper.setOperatorUIName(">");
+		oper.setOperatorDBName(">");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_INTEGER);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName(">=");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.IntegerOperator");
+		oper.setMethodName("LargerThanOrEqual");
+		oper.setOperatorUIName(">=");
+		oper.setOperatorDBName(">=");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_INTEGER);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName("<");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.IntegerOperator");
+		oper.setMethodName("SmallerThan");
+		oper.setOperatorUIName("<");
+		oper.setOperatorDBName("<");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_INTEGER);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName("<=");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.IntegerOperator");
+		oper.setMethodName("SmallerThanOrEqual");
+		oper.setOperatorUIName("<=");
+		oper.setOperatorDBName("<=");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_INTEGER);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName("IsEmpty");
+		oper.setNumOfOperands(1);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.IntegerOperator");
+		oper.setMethodName("IsEmpty");
+		oper.setOperatorUIName("Is Empty");
+		oper.setOperatorDBName("is null");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_INTEGER);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName("IsAnything");
+		oper.setNumOfOperands(1);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.IntegerOperator");
+		oper.setMethodName("IsAnything");
+		oper.setOperatorUIName("Is Anything");
+		oper.setOperatorDBName("is not null");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		// **********************************************************************
+		// Integer - Single Selection
+		// **********************************************************************
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_INTEGER);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+		oper.setOperatorName("==");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.IntegerOperator");
+		oper.setMethodName("Equal");
+		oper.setOperatorUIName("==");
+		oper.setOperatorDBName("=");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_INTEGER);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+		oper.setOperatorName("!=");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.IntegerOperator");
+		oper.setMethodName("NotEqual");
+		oper.setOperatorUIName("!=");
+		oper.setOperatorDBName("!=");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_INTEGER);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+		oper.setOperatorName(">");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.IntegerOperator");
+		oper.setMethodName("LargerThan");
+		oper.setOperatorUIName(">");
+		oper.setOperatorDBName(">");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_INTEGER);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+		oper.setOperatorName(">=");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.IntegerOperator");
+		oper.setMethodName("LargerThanOrEqual");
+		oper.setOperatorUIName(">=");
+		oper.setOperatorDBName(">=");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_INTEGER);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+		oper.setOperatorName("<");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.IntegerOperator");
+		oper.setMethodName("SmallerThan");
+		oper.setOperatorUIName("<");
+		oper.setOperatorDBName("<");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_INTEGER);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+		oper.setOperatorName("<=");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.IntegerOperator");
+		oper.setMethodName("SmallerThanOrEqual");
+		oper.setOperatorUIName("<=");
+		oper.setOperatorDBName("<=");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_INTEGER);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+		oper.setOperatorName("IsEmpty");
+		oper.setNumOfOperands(1);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.IntegerOperator");
+		oper.setMethodName("IsEmpty");
+		oper.setOperatorUIName("Is Empty");
+		oper.setOperatorDBName("is null");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_INTEGER);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+		oper.setOperatorName("IsAnything");
+		oper.setNumOfOperands(1);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.IntegerOperator");
+		oper.setMethodName("IsAnything");
+		oper.setOperatorUIName("Is Anything");
+		oper.setOperatorDBName("is not null");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		// **********************************************************************
+		// Integer - Multiple Selection
+		// **********************************************************************
+
+//		oper = new VoOperatorMeta();
+//		oper.setValueType(FoundryUtilConst.DATA_TYPE_INTEGER);
+//		oper.setSelectionType(FoundryUtilConst.ATTRIBUTE_UI_TYPE_MULTIPLE_SELECTION);
+//		oper.setOperatorName("In");
+//		oper.setNumOfOperands(2);
+//		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.IntegerOperator");
+//		oper.setMethodName("In");
+//		oper.setOperatorUIName("In");
+//		oper.setOperatorDBName("like");
+//		oper.setCriteriaEnable("true");
+//		pmp.createOperatorMeta(oper);
+//
+//		oper = new VoOperatorMeta();
+//		oper.setValueType(FoundryUtilConst.DATA_TYPE_INTEGER);
+//		oper.setSelectionType(FoundryUtilConst.ATTRIBUTE_UI_TYPE_MULTIPLE_SELECTION);
+//		oper.setOperatorName("NotIn");
+//		oper.setNumOfOperands(2);
+//		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.IntegerOperator");
+//		oper.setMethodName("NotIn");
+//		oper.setOperatorUIName("Not In");
+//		oper.setOperatorDBName("not like");
+//		oper.setCriteriaEnable("true");
+//		pmp.createOperatorMeta(oper);
+//
+//		oper = new VoOperatorMeta();
+//		oper.setValueType(FoundryUtilConst.DATA_TYPE_INTEGER);
+//		oper.setSelectionType(FoundryUtilConst.ATTRIBUTE_UI_TYPE_MULTIPLE_SELECTION);
+//		oper.setOperatorName("IsEmpty");
+//		oper.setNumOfOperands(1);
+//		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.IntegerOperator");
+//		oper.setMethodName("IsEmpty");
+//		oper.setOperatorUIName("Is Empty");
+//		oper.setOperatorDBName("is null");
+//		oper.setCriteriaEnable("true");
+//		pmp.createOperatorMeta(oper);
+//
+//		oper = new VoOperatorMeta();
+//		oper.setValueType(FoundryUtilConst.DATA_TYPE_INTEGER);
+//		oper.setSelectionType(FoundryUtilConst.ATTRIBUTE_UI_TYPE_MULTIPLE_SELECTION);
+//		oper.setOperatorName("IsAnything");
+//		oper.setNumOfOperands(1);
+//		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.IntegerOperator");
+//		oper.setMethodName("IsAnything");
+//		oper.setOperatorUIName("Is Anything");
+//		oper.setOperatorDBName("is not null");
+//		oper.setCriteriaEnable("true");
+//		pmp.createOperatorMeta(oper);
+
+	}
+
+	private void initDoubleOperators() throws SQLException, FoundryException {
+
+		PAPService pmp = PAPService.getInstance();
+		VoMetaOperator oper = null;
+
+		// **********************************************************************
+		// Double - Text Field
+		// **********************************************************************
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DOUBLE);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName("+");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DoubleOperator");
+		oper.setMethodName("Add");
+		oper.setOperatorUIName("+");
+		oper.setOperatorDBName("+");
+		oper.setCriteriaEnable("false");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DOUBLE);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName("-");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DoubleOperator");
+		oper.setMethodName("Subtract");
+		oper.setOperatorUIName("-");
+		oper.setOperatorDBName("-");
+		oper.setCriteriaEnable("false");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DOUBLE);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName("*");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DoubleOperator");
+		oper.setMethodName("Multiple");
+		oper.setOperatorUIName("*");
+		oper.setOperatorDBName("*");
+		oper.setCriteriaEnable("false");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DOUBLE);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName("/");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DoubleOperator");
+		oper.setMethodName("Divide");
+		oper.setOperatorUIName("/");
+		oper.setOperatorDBName("/");
+		oper.setCriteriaEnable("false");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DOUBLE);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName("==");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DoubleOperator");
+		oper.setMethodName("Equal");
+		oper.setOperatorUIName("==");
+		oper.setOperatorDBName("=");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DOUBLE);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName("!=");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DoubleOperator");
+		oper.setMethodName("NotEqual");
+		oper.setOperatorUIName("!=");
+		oper.setOperatorDBName("!=");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DOUBLE);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName(">");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DoubleOperator");
+		oper.setMethodName("LargerThan");
+		oper.setOperatorUIName(">");
+		oper.setOperatorDBName(">");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DOUBLE);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName(">=");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DoubleOperator");
+		oper.setMethodName("LargerThanOrEqual");
+		oper.setOperatorUIName(">=");
+		oper.setOperatorDBName(">=");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DOUBLE);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName("<");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DoubleOperator");
+		oper.setMethodName("SmallerThan");
+		oper.setOperatorUIName("<");
+		oper.setOperatorDBName("<");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DOUBLE);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName("<=");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DoubleOperator");
+		oper.setMethodName("SmallerThanOrEqual");
+		oper.setOperatorUIName("<=");
+		oper.setOperatorDBName("<=");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DOUBLE);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName("IsEmpty");
+		oper.setNumOfOperands(1);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DoubleOperator");
+		oper.setMethodName("IsEmpty");
+		oper.setOperatorUIName("Is Empty");
+		oper.setOperatorDBName("is null");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DOUBLE);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TEXT_FIELD);
+		oper.setOperatorName("IsAnything");
+		oper.setNumOfOperands(1);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DoubleOperator");
+		oper.setMethodName("IsAnything");
+		oper.setOperatorUIName("Is Anything");
+		oper.setOperatorDBName("is not null");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		// **********************************************************************
+		// Double - Single Selection
+		// **********************************************************************
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DOUBLE);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+		oper.setOperatorName("==");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DoubleOperator");
+		oper.setMethodName("Equal");
+		oper.setOperatorUIName("==");
+		oper.setOperatorDBName("=");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DOUBLE);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+		oper.setOperatorName("!=");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DoubleOperator");
+		oper.setMethodName("NotEqual");
+		oper.setOperatorUIName("!=");
+		oper.setOperatorDBName("!=");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DOUBLE);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+		oper.setOperatorName(">");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DoubleOperator");
+		oper.setMethodName("LargerThan");
+		oper.setOperatorUIName(">");
+		oper.setOperatorDBName(">");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DOUBLE);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+		oper.setOperatorName(">=");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DoubleOperator");
+		oper.setMethodName("LargerThanOrEqual");
+		oper.setOperatorUIName(">=");
+		oper.setOperatorDBName(">=");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DOUBLE);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+		oper.setOperatorName("<");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DoubleOperator");
+		oper.setMethodName("SmallerThan");
+		oper.setOperatorUIName("<");
+		oper.setOperatorDBName("<");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DOUBLE);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+		oper.setOperatorName("<=");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DoubleOperator");
+		oper.setMethodName("SmallerThanOrEqual");
+		oper.setOperatorUIName("<=");
+		oper.setOperatorDBName("<=");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DOUBLE);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+		oper.setOperatorName("IsEmpty");
+		oper.setNumOfOperands(1);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DoubleOperator");
+		oper.setMethodName("IsEmpty");
+		oper.setOperatorUIName("Is Empty");
+		oper.setOperatorDBName("is null");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DOUBLE);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_SINGLE_SELECTION);
+		oper.setOperatorName("IsAnything");
+		oper.setNumOfOperands(1);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DoubleOperator");
+		oper.setMethodName("IsAnything");
+		oper.setOperatorUIName("Is Anything");
+		oper.setOperatorDBName("is not null");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		// **********************************************************************
+		// Double - Multiple Selection
+		// **********************************************************************
+
+//		oper = new VoOperatorMeta();
+//		oper.setValueType(FoundryUtilConst.DATA_TYPE_DOUBLE);
+//		oper.setSelectionType(FoundryUtilConst.ATTRIBUTE_UI_TYPE_MULTIPLE_SELECTION);
+//		oper.setOperatorName("In");
+//		oper.setNumOfOperands(2);
+//		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DoubleOperator");
+//		oper.setMethodName("In");
+//		oper.setOperatorUIName("In");
+//		oper.setOperatorDBName("like");
+//		oper.setCriteriaEnable("true");
+//		pmp.createOperatorMeta(oper);
+//
+//		oper = new VoOperatorMeta();
+//		oper.setValueType(FoundryUtilConst.DATA_TYPE_DOUBLE);
+//		oper.setSelectionType(FoundryUtilConst.ATTRIBUTE_UI_TYPE_MULTIPLE_SELECTION);
+//		oper.setOperatorName("NotIn");
+//		oper.setNumOfOperands(2);
+//		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DoubleOperator");
+//		oper.setMethodName("NotIn");
+//		oper.setOperatorUIName("Not In");
+//		oper.setOperatorDBName("not like");
+//		oper.setCriteriaEnable("true");
+//		pmp.createOperatorMeta(oper);
+//
+//		oper = new VoOperatorMeta();
+//		oper.setValueType(FoundryUtilConst.DATA_TYPE_DOUBLE);
+//		oper.setSelectionType(FoundryUtilConst.ATTRIBUTE_UI_TYPE_MULTIPLE_SELECTION);
+//		oper.setOperatorName("IsEmpty");
+//		oper.setNumOfOperands(1);
+//		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DoubleOperator");
+//		oper.setMethodName("IsEmpty");
+//		oper.setOperatorUIName("Is Empty");
+//		oper.setOperatorDBName("is null");
+//		oper.setCriteriaEnable("true");
+//		pmp.createOperatorMeta(oper);
+//
+//		oper = new VoOperatorMeta();
+//		oper.setValueType(FoundryUtilConst.DATA_TYPE_DOUBLE);
+//		oper.setSelectionType(FoundryUtilConst.ATTRIBUTE_UI_TYPE_MULTIPLE_SELECTION);
+//		oper.setOperatorName("IsAnything");
+//		oper.setNumOfOperands(1);
+//		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DoubleOperator");
+//		oper.setMethodName("IsAnything");
+//		oper.setOperatorUIName("Is Anything");
+//		oper.setOperatorDBName("is not null");
+//		oper.setCriteriaEnable("true");
+//		pmp.createOperatorMeta(oper);
+	}
+	
+	private void initDateOperators() throws SQLException, FoundryException {
+
+		PAPService pmp = PAPService.getInstance();
+		VoMetaOperator oper = null;
+
+		// **********************************************************************
+		// Date DateTime
+		// **********************************************************************
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DATETIME);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_DATETIME);
+		oper.setOperatorName("Equal");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DatetimeOperator");
+		oper.setMethodName("Equal");
+		oper.setOperatorUIName("Equal");
+		oper.setOperatorDBName("=");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DATETIME);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_DATETIME);
+		oper.setOperatorName("Before");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DatetimeOperator");
+		oper.setMethodName("Before");
+		oper.setOperatorUIName("Before");
+		oper.setOperatorDBName("<");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DATETIME);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_DATETIME);
+		oper.setOperatorName("After");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DatetimeOperator");
+		oper.setMethodName("After");
+		oper.setOperatorUIName("After");
+		oper.setOperatorDBName(">");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+		
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DATETIME);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_DATETIME);
+		oper.setOperatorName("IsEmpty");
+		oper.setNumOfOperands(1);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DatetimeOperator");
+		oper.setMethodName("IsEmpty");
+		oper.setOperatorUIName("Is Empty");
+		oper.setOperatorDBName("is null");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DATETIME);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_DATETIME);
+		oper.setOperatorName("IsAnything");
+		oper.setNumOfOperands(1);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DatetimeOperator");
+		oper.setMethodName("IsAnything");
+		oper.setOperatorUIName("Is Anything");
+		oper.setOperatorDBName("is not null");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+		
+		
+		
+		
+		
+		// **********************************************************************
+		// Date Date
+		// **********************************************************************
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DATETIME);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_DATE);
+		oper.setOperatorName("Equal");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DatetimeOperator");
+		oper.setMethodName("Equal");
+		oper.setOperatorUIName("Equal");
+		oper.setOperatorDBName("=");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DATETIME);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_DATE);
+		oper.setOperatorName("Before");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DatetimeOperator");
+		oper.setMethodName("Before");
+		oper.setOperatorUIName("Before");
+		// TODO
+		oper.setOperatorDBName("TBD");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DATETIME);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_DATE);
+		oper.setOperatorName("After");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DatetimeOperator");
+		oper.setMethodName("After");
+		oper.setOperatorUIName("After");
+		// TODO
+		oper.setOperatorDBName("TBD");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+		
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DATETIME);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_DATE);
+		oper.setOperatorName("IsEmpty");
+		oper.setNumOfOperands(1);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DatetimeOperator");
+		oper.setMethodName("IsEmpty");
+		oper.setOperatorUIName("Is Empty");
+		oper.setOperatorDBName("is null");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DATETIME);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_DATE);
+		oper.setOperatorName("IsAnything");
+		oper.setNumOfOperands(1);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DatetimeOperator");
+		oper.setMethodName("IsAnything");
+		oper.setOperatorUIName("Is Anything");
+		oper.setOperatorDBName("is not null");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		
+		
+		// **********************************************************************
+		// Date Time
+		// **********************************************************************
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DATETIME);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TIME);
+		oper.setOperatorName("Equal");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DatetimeOperator");
+		oper.setMethodName("Equal");
+		oper.setOperatorUIName("Equal");
+		oper.setOperatorDBName("=");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DATETIME);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TIME);
+		oper.setOperatorName("Before");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DatetimeOperator");
+		oper.setMethodName("Before");
+		oper.setOperatorUIName("Before");
+		// TODO
+		oper.setOperatorDBName("TBD");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DATETIME);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TIME);
+		oper.setOperatorName("After");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DatetimeOperator");
+		oper.setMethodName("After");
+		oper.setOperatorUIName("After");
+		// TODO
+		oper.setOperatorDBName("TBD");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+		
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DATETIME);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TIME);
+		oper.setOperatorName("IsEmpty");
+		oper.setNumOfOperands(1);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DatetimeOperator");
+		oper.setMethodName("IsEmpty");
+		oper.setOperatorUIName("Is Empty");
+		oper.setOperatorDBName("is null");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_DATETIME);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_TIME);
+		oper.setOperatorName("IsAnything");
+		oper.setNumOfOperands(1);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.DatetimeOperator");
+		oper.setMethodName("IsAnything");
+		oper.setOperatorUIName("Is Anything");
+		oper.setOperatorDBName("is not null");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+	}
+	
+	private void initBooleanOperators() throws SQLException, FoundryException {
+
+		PAPService pmp = PAPService.getInstance();
+		VoMetaOperator oper = null;
+
+		// **********************************************************************
+		// Boolean
+		// **********************************************************************
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_BOOLEAN);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_BOOLEAN);
+		oper.setOperatorName("And");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.BooleanOperator");
+		oper.setMethodName("And");
+		oper.setOperatorUIName("And");
+		oper.setOperatorDBName("and");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_BOOLEAN);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_BOOLEAN);
+		oper.setOperatorName("Or");
+		oper.setNumOfOperands(2);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.BooleanOperator");
+		oper.setMethodName("Or");
+		oper.setOperatorUIName("Or");
+		oper.setOperatorDBName("or");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+
+		oper = new VoMetaOperator();
+		oper.setValueType(FoundryConstants.DATA_TYPE_BOOLEAN);
+		oper.setSelectionType(FoundryConstants.ATTRIBUTE_UI_TYPE_BOOLEAN);
+		oper.setOperatorName("Not");
+		oper.setNumOfOperands(1);
+		oper.setClassName("com.sekoan.FoundryUtil.pdp.server.operator.BooleanOperator");
+		oper.setMethodName("Not");
+		oper.setOperatorUIName("Not");
+		oper.setOperatorDBName("not");
+		oper.setCriteriaEnable("true");
+		pmp.createOperatorMeta(oper);
+	}

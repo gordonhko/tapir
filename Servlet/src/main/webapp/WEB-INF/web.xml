@@ -1,0 +1,64 @@
+<web-app id="WebApp_ID" version="2.4"
+	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<display-name>Foundry Servlet</display-name>
+
+	<servlet>
+		<servlet-name>FoundryServlet</servlet-name>
+		
+		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+ 		<init-param>
+ 			<param-name>jersey.config.server.provider.packages</param-name>
+ 			<param-value>com.fusui.tapir.facade.ws,
+ 						 org.codehaus.jackson.jaxrs      <!-- Jackson providers -->
+ 			</param-value>
+ 		</init-param>
+ 		<!-- init-param>
+ 			<param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+ 			<param-value>true</param-value>
+ 		</init-param -->
+ 		
+		<!--  This is for Jersey 1.x -->
+		<!-- servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+ 		<init-param>
+ 			<param-name>com.sun.jersey.config.property.packages</param-name>
+ 			<param-value>com.bom.arms.servlet.rs</param-value>
+ 		</init-param>
+ 		<init-param>
+ 			<param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+ 			<param-value>true</param-value>
+ 		</init-param -->		
+
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>FoundryServlet</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- The following is for SSL -->
+	<!-- security-constraint>
+		<web-resource-collection>
+			<web-resource-name>arms</web-resource-name>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>SYSTEM pages</web-resource-name>
+            <url-pattern>/SYSTEM/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint -->
+
+</web-app>

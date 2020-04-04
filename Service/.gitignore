@@ -1,0 +1,16 @@
+.project
+.classpath
+target
+profiles.xml
+tmp
+*.tmpproj
+.checkstyle
+.externalToolBuilders
+.metadata
+.pmd
+.settings
+.springBeans
+webid
+webid.*
+logs
+*.DS_Store

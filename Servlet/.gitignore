@@ -1,0 +1,8 @@
+.project
+.classpath
+/classes/
+/test-classes/
+target
+log
+.settings
+*.DS_Store
