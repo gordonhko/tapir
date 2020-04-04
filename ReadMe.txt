@@ -1,4 +1,4 @@
-To run the foundry servlet
+To run the tapir servlet
 
 in this folder
 1) run mvn clean install -DskipTests=true
@@ -6,9 +6,9 @@ in this folder
 
 3) go to browser
 
-http://localhost/foundry/version
+http://localhost/tapir/version
 
-http://localhost/foundry/version/properties
+http://localhost/tapir/version/properties
 
 // 1234 is user id
-http://localhost/foundry/version/user/1234
+http://localhost/tapir/version/user/1234
