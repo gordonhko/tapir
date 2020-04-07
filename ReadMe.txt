@@ -1,14 +1,35 @@
-To run the tapir servlet
+The Access Policy Rule Engine
 
-in this folder
-1) run mvn clean install -DskipTests=true
-2) copy WsFacade\target\WsFacade-1.0-SNAPSHOT.war to Tomcat webapp folder
+// PRP
 
-3) go to browser
+1) Append-only
+- No race condition
+2) Multi-tenant
+3) In-memory snapshot from database (RowBase)
+- tenant-based 
+- data size is limited
+- most requests are reading
+- table join and other operations implemented by application
 
-http://localhost/tapir/version
 
-http://localhost/tapir/version/properties
+// PAP
 
-// 1234 is user id
-http://localhost/tapir/version/user/1234
+1) Support system variable as left-operand such as $TIME, $TODAY, $OS
+2) Support 3rd party evaluation, 
+- operator = “@(custom_function)”.
+- no operands
+- passing userId, tenantID/companyID, objectType, objectID to @(custom_function) 
+
+
+// PIP
+1) pseudo metadata and biz data retrieve
+
+
+// PEP
+1) Support both command line and restful
+
+
+// PDP
+
+1) “AND” operators applying to all rules in the same policy
+2) “OR” operators applying to all policies
