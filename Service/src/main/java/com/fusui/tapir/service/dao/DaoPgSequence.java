@@ -38,7 +38,7 @@ public class DaoPgSequence extends DaoSequence {
 		ResultSet rs = null;
 		try {
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery(SqlDictionary.getInstance().getSqlStmt(SqlKey.SELECT_TAPIR_SEQUENCE_SQL));
+			rs = stmt.executeQuery(SqlDictionary.getInstance().getSqlStmt(SqlKey.SELECT_SEQUENCE_SQL));
 			rs.next();
 			int count = rs.getInt(1);
 			return count;

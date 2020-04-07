@@ -154,7 +154,7 @@ public class PAPService {
 	public VoUser getUserById(long userId) throws TapirException {
 		try {
 			TransactionManager.transactionStart();
-			VoUser newApp = userDao.getUserByMid(userId);
+			VoUser newApp = null; //userDao.getUserByMid(userId);
 			TransactionManager.transactionCommit();
 			return newApp;
 		} catch (Throwable t) {
@@ -174,7 +174,7 @@ public class PAPService {
 	public VoUser createUser(VoUser user) throws SQLException, TapirException {
 		try {
 			TransactionManager.transactionStart();
-			VoUser newUser = userDao.createUser(user);
+			VoUser newUser = null; //userDao.createUser(user);
 			TransactionManager.transactionCommit();
 			return newUser;
 		} catch (Throwable t) {
@@ -194,7 +194,7 @@ public class PAPService {
 	public VoUser getUserByLoginName(String loginName) throws TapirException {
 		try {
 			TransactionManager.transactionStart();
-			VoUser newUser = userDao.getUserByLoginName(loginName);
+			VoUser newUser = null; // userDao.getUserByLoginName(loginName);
 			TransactionManager.transactionCommit();
 			return newUser;
 		} catch (Throwable t) {
@@ -214,7 +214,7 @@ public class PAPService {
 	public void bindUserByGroup(long userId, long groupId) throws TapirException {
 		try {
 			TransactionManager.transactionStart();
-			userDao.bindUserByGroup(userId, groupId);
+			//userDao.bindUserByGroup(userId, groupId);
 			TransactionManager.transactionCommit();
 		} catch (Throwable t) {
 			t.printStackTrace();
@@ -237,7 +237,7 @@ public class PAPService {
 	public void bindUserByPolicy(long userId, long policyId) throws TapirException {
 		try {
 			TransactionManager.transactionStart();
-			userDao.bindUserByPolicy(userId, policyId);
+			//userDao.bindUserByPolicy(userId, policyId);
 			TransactionManager.transactionCommit();
 		} catch (Throwable t) {
 			t.printStackTrace();
@@ -505,7 +505,7 @@ public class PAPService {
 			TransactionManager.transactionStart();
 
 			// create parent policy
-			VoPolicy newPolicy = policyDao.createPolicy(policy);
+			VoPolicy newPolicy = null; //policyDao.createPolicy(policy);
 			Long newPolicyId = newPolicy.getSid();
 
 			// get old rule List
@@ -533,7 +533,7 @@ public class PAPService {
 
 			// create parent policy
 			Long oldPolicyId = policy.getSid();
-			VoPolicy newPolicy = policyDao.createPolicy(policy);
+			VoPolicy newPolicy = null; // policyDao.createPolicy(policy);
 			Long newPolicyId = newPolicy.getSid();
 
 			// get Old rule list
@@ -595,7 +595,7 @@ public class PAPService {
 
 			Set<VoPolicy> pSet = new HashSet<VoPolicy>();
 			// create parent policy
-			List<VoPolicy> pList = userDao.getAllPoliciesByUserWithGroupAndAction(userId, action);
+			List<VoPolicy> pList = null; // userDao.getAllPoliciesByUserWithGroupAndAction(userId, action);
 			if (pList != null) {
 				for (VoPolicy policy : pList) {
 					pSet.add(policy);
@@ -603,7 +603,7 @@ public class PAPService {
 			}
 
 			// find groups from user
-			List<VoGroup> gList = userDao.getAllGroupsByUser(userId);
+			List<VoGroup> gList = null; //userDao.getAllGroupsByUser(userId);
 //			if (gList != null) {
 //				for (VoGroup group : gList) {
 //				//	List<VoPolicy> pgList = groupDao.getAllPoliciesByGroup(group.getId());

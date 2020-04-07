@@ -13,11 +13,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fusui.tapir.common.dto.VoGroup;
-import com.fusui.tapir.common.dto.VoMetaOperand;
-import com.fusui.tapir.common.dto.VoUser;
 import com.fusui.tapir.service.dal.TransactionManager;
 import com.fusui.tapir.service.dal.TransactionManager.DaoTransContext;
 import com.fusui.tapir.service.dao.SqlDictionary.SqlKey;
+
+/*
+ * @author gko
+ */
 
 public class DaoGroup {
 	private static Logger logger = LoggerFactory.getLogger(DaoGroup.class);
@@ -25,7 +27,7 @@ public class DaoGroup {
 //	private static final String SQL_CREATE_MASTER_GROUPS = 
 //		"CREATE TABLE TAPIR_GROUP_MASTERS ( "+
 //			"GROUP_MASTER_ID NUMBER NOT NULL, "+
-//			"COMPANY NUMBER NOT NULL, "+
+//			"TENANT_ID NUMBER NOT NULL, "+
 //			"CREATOR NUMBER, " +
 //			"CREATION_DATE DATE, "+ 
 //			"PRIMARY KEY (GROUP_MASTER_ID) )";
@@ -36,7 +38,7 @@ public class DaoGroup {
 //		"CREATE TABLE TAPIR_GROUPS ( " + 
 //			"GROUP_ID NUMBER NOT NULL, " +
 //			"GROUP_MASTER_ID NUMBER NOT NULL, " +
-//			"COMPANY NUMBER NOT NULL, " +
+//			"TENANT_ID NUMBER NOT NULL, " +
 //			"CREATOR NUMBER NOT NULL, " +
 //			"CREATION_DATE DATE NOT NULL," + 
 //			"DELETED BOOLEAN, " +
@@ -47,9 +49,9 @@ public class DaoGroup {
 //			
 //	private static final String DROP_GROUP_TABLE_SQL = "DROP TABLE TAPIR_GROUPS";
 //			
-//	private static final String APPEND_MASTER_GROUP_SQL = "INSERT INTO master_group (GROUP_MASTER_ID, COMPANY, CREATOR, CREATION_DATE) VALUES (?, ?, ?, ?)";
-//	private static final String APPEND_GROUP_SQL = "INSERT INTO grouptable (GROUP_ID, GROUP_MASTER_ID, COMPANY, CREATOR, CREATION_DATE, DELETED, NAME, DESCRIPTION, ENABLED) VALUES (?, ?, ?, ?, ?, false, ?, ?, ?)";
-//	private static final String DELETE_GROUP_SQL = "INSERT INTO grouptable (GROUP_ID, GROUP_MASTER_ID, COMPANY, CREATOR, CREATION_DATE, DELETED) VALUES (?, ?, ?, ?, ?, true)";
+//	private static final String APPEND_MASTER_GROUP_SQL = "INSERT INTO master_group (GROUP_MASTER_ID, TENANT_ID, CREATOR, CREATION_DATE) VALUES (?, ?, ?, ?)";
+//	private static final String APPEND_GROUP_SQL = "INSERT INTO grouptable (GROUP_ID, GROUP_MASTER_ID, TENANT_ID, CREATOR, CREATION_DATE, DELETED, NAME, DESCRIPTION, ENABLED) VALUES (?, ?, ?, ?, ?, false, ?, ?, ?)";
+//	private static final String DELETE_GROUP_SQL = "INSERT INTO grouptable (GROUP_ID, GROUP_MASTER_ID, TENANT_ID, CREATOR, CREATION_DATE, DELETED) VALUES (?, ?, ?, ?, ?, true)";
 
 	
 	private final static DaoGroup s_singleton = new DaoGroup();
@@ -66,7 +68,7 @@ public class DaoGroup {
 	// Insert, Update and Delete Policy
 	// **********************************************************************
 	 
-	public Long createGroup(Long userId, Long companyId, String name, String desc, Boolean enabled) throws SQLException {
+	public Long createGroup(Long userId, Long tenantId, String name, String desc, Boolean enabled) throws SQLException {
 
 		DaoTransContext context = TransactionManager.getContext();
 		Connection conn = context.getConnection();
@@ -78,7 +80,7 @@ public class DaoGroup {
 			ts = new Timestamp(new Date().getTime());
 			stmt = conn.prepareStatement(SqlDictionary.getInstance().getSqlStmt(SqlKey.APPEND_MASTER_GROUPS_SQL) );
 			stmt.setLong(1, masterId);
-			stmt.setLong(2, companyId);
+			stmt.setLong(2, tenantId);
 			stmt.setLong(3, userId);
 			stmt.setTimestamp(4, ts);
 			int nRows = stmt.executeUpdate();
@@ -92,7 +94,7 @@ public class DaoGroup {
 			stmt = conn.prepareStatement(SqlDictionary.getInstance().getSqlStmt(SqlKey.APPEND_GROUPS_SQL));
 			stmt.setLong(1, id);
 			stmt.setLong(2, masterId);		// master ID;
-			stmt.setLong(3, companyId);
+			stmt.setLong(3, tenantId);
 			stmt.setLong(4, userId);
 			stmt.setTimestamp(5, ts);
 			
@@ -117,7 +119,7 @@ public class DaoGroup {
 	/*
 	 * return primary key
 	 */
-	public Long updateGroup(Long userId, Long companyId, Long groupId, String name, String desc, Boolean enabled) throws SQLException {
+	public Long updateGroup(Long userId, Long tenantId, Long groupId, String name, String desc, Boolean enabled) throws SQLException {
 		DaoTransContext context = TransactionManager.getContext();
 		Connection conn = context.getConnection();
 		Timestamp ts = new Timestamp(new Date().getTime());
@@ -128,7 +130,7 @@ public class DaoGroup {
 			stmt = conn.prepareStatement(SqlDictionary.getInstance().getSqlStmt(SqlKey.APPEND_GROUPS_SQL));
 			stmt.setLong(1, sid);
 			stmt.setLong(2, groupId);		// master ID;
-			stmt.setLong(3, companyId);
+			stmt.setLong(3, tenantId);
 			stmt.setLong(4, userId);
 			stmt.setTimestamp(5, ts);
 			
@@ -149,7 +151,7 @@ public class DaoGroup {
 		}
 	}
 
-	public Long deleteGroup(Long userId, Long companyId, VoGroup group) throws SQLException {
+	public Long deleteGroup(Long userId, Long tenantId, VoGroup group) throws SQLException {
 		DaoTransContext context = TransactionManager.getContext();
 		Connection conn = context.getConnection();
 		Timestamp ts = new Timestamp(new Date().getTime());
@@ -160,7 +162,7 @@ public class DaoGroup {
 			stmt = conn.prepareStatement(SqlDictionary.getInstance().getSqlStmt(SqlKey.DELETE_GROUPS_SQL));
 			stmt.setLong(1, sid);
 			stmt.setLong(2, group.getId());		// master ID;
-			stmt.setLong(3, companyId);
+			stmt.setLong(3, tenantId);
 			stmt.setLong(4, userId);
 			stmt.setTimestamp(5, ts);
 
@@ -177,7 +179,7 @@ public class DaoGroup {
 		}
 	}
 	
-	public List <RowGroup> readGroup(Long userId, Long companyId ) throws SQLException {
+	public List <RowGroup> readGroup(Long userId, Long tenantId ) throws SQLException {
 		DaoTransContext context = TransactionManager.getContext();
 		Connection conn = context.getConnection();
 		PreparedStatement stmt = null;	
@@ -185,7 +187,7 @@ public class DaoGroup {
 
 		try {
 			stmt = conn.prepareStatement(SqlDictionary.getInstance().getSqlStmt(SqlKey.SELECT_GROUPS_SQL));
-			stmt.setLong(1, companyId);
+			stmt.setLong(1, tenantId);
 
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -202,7 +204,7 @@ public class DaoGroup {
 		}
 	}
 
-	// SELECT GROUP_ID, GROUP_MASTER_ID, CREATOR, CREATION_DATE, DELETED, NAME, DESCRIPTION, ENABLED WHERE COMPANY = ?
+	// SELECT GROUP_ID, GROUP_MASTER_ID, CREATOR, CREATION_DATE, DELETED, NAME, DESCRIPTION, ENABLED WHERE TENANT_ID = ?
 	private RowGroup buildRow(ResultSet rs) throws SQLException {
 		RowGroup group = new RowGroup();
 		group.setId(rs.getLong(1));

@@ -171,7 +171,7 @@ public class DictionaryServices {
 	// **********************************************************************
 
 	public String getAllUserStatus() {
-		return DaoUser.USER_STATUS_ACTIVE + FoundryConstants.VALUE_DELIMITER + DaoUser.USER_STATUS_INACTIVE;
+		return null;//DaoUser.USER_STATUS_ACTIVE + FoundryConstants.VALUE_DELIMITER + DaoUser.USER_STATUS_INACTIVE;
 	}
 
 	public String getAllPolicyActionNames() {

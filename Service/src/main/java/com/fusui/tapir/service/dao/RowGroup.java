@@ -7,7 +7,7 @@ public class RowGroup extends RowBase {
 	// SELECT GROUP_ID, GROUP_MASTER_ID, CREATOR, CREATION_DATE, DELETED, NAME, DESCRIPTION, ENABLED WHERE COMPANY = ?
 	private Long id;
 	private Long masterId;
-	//private Long companyId;
+	//private Long tenantId;
 	private Long creator;
 	private Date timeStamp;
 	private Boolean deleted;
@@ -27,11 +27,11 @@ public class RowGroup extends RowBase {
 	public void setMasterId(Long masterId) {
 		this.masterId = masterId;
 	}
-//	public Long getCompany() {
+//	public Long getTenantId() {
 //		return masterId;
 //	}
-//	public void setCompanyId(Long companyId) {
-//		this.companyId = companyId;
+//	public void setTenantId(Long tenantId) {
+//		this.tenantId = tenantId;
 //	}
 	public Long getCreator() {
 		return creator;

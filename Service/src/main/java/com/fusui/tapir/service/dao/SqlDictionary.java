@@ -4,8 +4,6 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 import org.slf4j.Logger;
@@ -16,17 +14,38 @@ import com.fusui.tapir.service.dal.DataSourceFactory;
 public class SqlDictionary {
 
 	enum SqlKey {
-		CREATE_TAPIR_SEQUENCE_SQL,
-		DROP_TAPIR_SEQUENCE_SQL,
-		SELECT_TAPIR_SEQUENCE_SQL,
+		CREATE_SEQUENCE_SQL,
+		DROP_SEQUENCE_SQL,
+		CREATE_USERS_SQL,
+		DROP_USERS_SQL,
 		CREATE_MASTER_GROUPS_SQL, 
 		DROP_MASTER_GROUPS_SQL, 
 		CREATE_GROUPS_SQL, 
-		DROP_GROUPS_SQL, 
+		DROP_GROUPS_SQL,
+		CREATE_MEMBERS_SQL,
+		DROP_MEMBERS_SQL,  
+		
+		// sequence
+		SELECT_SEQUENCE_SQL,
+		
+		// user
+		APPEND_USERS_SQL,
+		UPDATE_USERS_SQL,
+		DELETE_USERS_SQL,
+		SELECT_USERS_SQL,
+		
+		// group
 		APPEND_MASTER_GROUPS_SQL,
 		APPEND_GROUPS_SQL, 
+		INSERT_GROUPS_SQL,
 		DELETE_GROUPS_SQL,
-		SELECT_GROUPS_SQL
+		SELECT_GROUPS_SQL,
+		
+		// member
+		APPEND_MEMBERS_SQL, 
+		UPDATE_MEMBERS_SQL, 
+		DELETE_MEMBERS_SQL,
+		SELECT_MEMBERS_SQL 
 	}
 
 	private static Logger logger = LoggerFactory.getLogger(SqlDictionary.class);
@@ -72,22 +91,28 @@ public class SqlDictionary {
 	}
 
 	public void initSql() throws SQLException {
-
-		List<SqlKey> keys = new ArrayList<SqlKey>();
-		keys.add(SqlKey.DROP_TAPIR_SEQUENCE_SQL);
-		keys.add(SqlKey.DROP_MASTER_GROUPS_SQL);
-		keys.add(SqlKey.DROP_GROUPS_SQL);
-		keys.add(SqlKey.CREATE_TAPIR_SEQUENCE_SQL);
-		keys.add(SqlKey.CREATE_MASTER_GROUPS_SQL);
-		keys.add(SqlKey.CREATE_GROUPS_SQL);
-		
 		
 		Connection conn = DataSourceFactory.getInstance().getConnection();
 		Statement stmt = conn.createStatement();
-		for (SqlKey key : keys) {
+		for (SqlKey key :  SqlKey.values()) {
 			try {
-				stmt.execute(getSqlStmt(key));
-				conn.commit();
+				if (key.name().toUpperCase().startsWith("DROP")) {
+					stmt.execute(getSqlStmt(key));
+					conn.commit();
+				}
+			}
+			catch (Throwable t) {
+				conn.rollback();
+				System.out.println(t.getMessage());
+			}
+		}
+		
+		for (SqlKey key :  SqlKey.values()) {
+			try {
+				if (key.name().toUpperCase().startsWith("CREATE")) {
+					stmt.execute(getSqlStmt(key));
+					conn.commit();
+				}
 			}
 			catch (Throwable t) {
 				conn.rollback();
