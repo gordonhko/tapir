@@ -9,7 +9,7 @@ import org.apache.commons.dbcp.BasicDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DbcpDataSource implements DataSource {
+public class DbcpDataSource implements IDataSource {
 
 	private static final Logger logger = LoggerFactory.getLogger(DbcpDataSource.class);
     private BasicDataSource ds;

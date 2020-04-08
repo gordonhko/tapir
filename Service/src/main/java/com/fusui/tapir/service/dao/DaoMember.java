@@ -21,46 +21,16 @@ import com.fusui.tapir.service.dao.ResourceDictionary.SqlKey;
  * @author gko
  */
 
-public class DaoGroup {
-	private static Logger logger = LoggerFactory.getLogger(DaoGroup.class);
+public class DaoMember {
+	private static Logger logger = LoggerFactory.getLogger(DaoMember.class);
 
-//	private static final String SQL_CREATE_MASTER_GROUPS = 
-//		"CREATE TABLE TAPIR_GROUP_MASTERS ( "+
-//			"GROUP_MASTER_ID NUMBER NOT NULL, "+
-//			"TENANT_ID NUMBER NOT NULL, "+
-//			"CREATOR NUMBER, " +
-//			"CREATION_DATE DATE, "+ 
-//			"PRIMARY KEY (GROUP_MASTER_ID) )";
-//			
-//	private static final String SQL_DROP_MASTER_GROUPS = "DROP TABLE TAPIR_GROUP_MASTERS";
-//
-//	private static final String CREATE_GROUP_TABLE_SQL = 
-//		"CREATE TABLE TAPIR_GROUPS ( " + 
-//			"GROUP_ID NUMBER NOT NULL, " +
-//			"GROUP_MASTER_ID NUMBER NOT NULL, " +
-//			"TENANT_ID NUMBER NOT NULL, " +
-//			"CREATOR NUMBER NOT NULL, " +
-//			"CREATION_DATE DATE NOT NULL," + 
-//			"DELETED BOOLEAN, " +
-//			"NAME VARCHAR2(128), " +
-//			"DESCRIPTION VARCHAR2(1024), " + 
-//			"ENABLED BOOLEAN, " +
-//			"PRIMARY KEY (GROUP_ID) )";
-//			
-//	private static final String DROP_GROUP_TABLE_SQL = "DROP TABLE TAPIR_GROUPS";
-//			
-//	private static final String APPEND_MASTER_GROUP_SQL = "INSERT INTO master_group (GROUP_MASTER_ID, TENANT_ID, CREATOR, CREATION_DATE) VALUES (?, ?, ?, ?)";
-//	private static final String APPEND_GROUP_SQL = "INSERT INTO grouptable (GROUP_ID, GROUP_MASTER_ID, TENANT_ID, CREATOR, CREATION_DATE, DELETED, NAME, DESCRIPTION, ENABLED) VALUES (?, ?, ?, ?, ?, false, ?, ?, ?)";
-//	private static final String DELETE_GROUP_SQL = "INSERT INTO grouptable (GROUP_ID, GROUP_MASTER_ID, TENANT_ID, CREATOR, CREATION_DATE, DELETED) VALUES (?, ?, ?, ?, ?, true)";
+	private final static DaoMember s_singleton = new DaoMember();
 
-	
-	private final static DaoGroup s_singleton = new DaoGroup();
-
-	public static DaoGroup getInstance() {
+	public static DaoMember getInstance() {
 		return s_singleton;
 	}
 
-	private DaoGroup() {
+	private DaoMember() {
 		// use singleton instead of generating a new object
 	}
 

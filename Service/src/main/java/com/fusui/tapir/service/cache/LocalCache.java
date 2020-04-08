@@ -1,6 +1,7 @@
-package com.fusui.tapir.service;
+package com.fusui.tapir.service.cache;
 
 import java.util.Map.Entry;
+import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -11,20 +12,20 @@ import com.google.common.cache.CacheBuilder;
  * @author gko
  */
 //http://www.baeldung.com/guava-cache
-public class ObjectCache <K, V> {
+public class LocalCache <K, V> implements ICache {
 	
 	private Cache <K,V> cache; 
 	
-	public ObjectCache() {
+	public LocalCache() {
 		this (null);
 	}
-	public ObjectCache(String name) {
+	public LocalCache(String name) {
 		this (name, 24);
 	}
 	
-	public ObjectCache(String name, int lifespacInMinutes) {
+	public LocalCache(String name, int lifespacInMinutes) {
 		cache = CacheBuilder.newBuilder()
-				.expireAfterWrite(lifespacInMinutes, TimeUnit.HOURS)
+				.expireAfterWrite(lifespacInMinutes, TimeUnit.MINUTES)
 			    //.maximumSize(2048)
 			    .build(); 
 	}
@@ -52,6 +53,7 @@ public class ObjectCache <K, V> {
 		// based on evction policy
 		cache.cleanUp();
 	}
+	
 
 }
 

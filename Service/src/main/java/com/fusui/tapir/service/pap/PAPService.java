@@ -27,6 +27,7 @@ import com.fusui.tapir.common.dto.VoUser;
 import com.fusui.tapir.service.dal.TransactionManager;
 import com.fusui.tapir.service.dal.TransactionManager.DaoTransContext;
 import com.fusui.tapir.service.dao.DaoGroup;
+import com.fusui.tapir.service.dao.DaoMember;
 import com.fusui.tapir.service.dao.DaoPolicy;
 import com.fusui.tapir.service.dao.DaoRule;
 import com.fusui.tapir.service.dao.DaoUser;
@@ -43,8 +44,7 @@ public class PAPService {
 
 	private final DaoGroup groupDao = DaoGroup.getInstance();
 	private final DaoUser userDao = DaoUser.getInstance();
-	//private final DaoApp appDao = DaoApp.getInstance();
-	//private final DaoMachine machineDao = DaoMachine.getInstance();
+	private final DaoMember memberDao = DaoMember.getInstance();
 	private final DaoPolicy policyDao = DaoPolicy.getInstance();
 	private final DaoRule ruleDao = DaoRule.getInstance();
 
@@ -54,81 +54,8 @@ public class PAPService {
 		return instance;
 	}
 
-	public PAPService() {
-		try {
-			initSchema();
-		}
-		catch (Throwable t) {
-			logger.equals(t);
-			t.printStackTrace();
-			System.exit(0);
-		}
-	}
-
-	private void initSchema() throws TapirException, IOException {
-		InputStream is = PAPService.class.getClassLoader().getResourceAsStream("acs.sql");
-		DataInputStream dis = null;
-
-		if (is == null) {
-			throw new TapirException("Cannot find init schema acs.sql");
-		}
-		dis = new DataInputStream(is);
-		String line = null;
-		int lnNum = 0;
-
-		try {
-			TransactionManager.transactionStart();
-
-			DaoTransContext context = TransactionManager.getContext();
-			Connection conn = context.getConnection();
-			Statement stmt = null;
-
-			StringBuilder sb = new StringBuilder();
-			while (true) {
-				line = dis.readLine();
-				if (line == null) {
-					break;
-				}
-				lnNum++;
-
-				line = line.trim();
-				if (line.length() == 0 || line.startsWith("--")) {
-					continue;
-				}
-				
-				sb.append(line);
-				if (line.getBytes()[line.length()-1] != ';') {
-					sb.append(" ");
-					continue;
-				}
-
-				try {
-					stmt = conn.createStatement();
-					stmt.executeUpdate(sb.toString());
-					sb.setLength(0);
-
-				} finally {
-					if (stmt != null) {
-						stmt.close();
-					}
-				}
-			}
-
-			TransactionManager.transactionCommit();
-
-		} catch (Throwable t) {
-			System.out.println("Error at line " + lnNum + ", " + line);
-			TransactionManager.transactionRollback();
-			throw new TapirException(t);
-		} finally {
-			if (dis != null) {
-				dis.close();
-			}
-			if (is != null) {
-				is.close();
-			}
-		}
-
+	private PAPService() {
+	 
 	}
 
 	public VoDictionary getDictionary() throws TapirException {

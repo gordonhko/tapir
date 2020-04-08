@@ -1,21 +1,7 @@
 package com.fusui.tapir.service.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.fusui.tapir.common.dto.FoundryConstants;
-import com.fusui.tapir.common.dto.VoPolicy;
-import com.fusui.tapir.common.dto.VoUser;
-import com.fusui.tapir.service.dal.TransactionManager;
-import com.fusui.tapir.service.dal.TransactionManager.DaoTransContext;
 
 
 

@@ -9,14 +9,14 @@ import com.fusui.tapir.common.TapirException;
 import com.fusui.tapir.service.dal.TransactionManager;
 import com.fusui.tapir.service.dao.DaoGroup;
 import com.fusui.tapir.service.dao.RowGroup;
-import com.fusui.tapir.service.dao.SqlDictionary;
+import com.fusui.tapir.service.dao.ResourceDictionary;
 
 @Ignore
 public class TestMeFirst {
 
 
 	private void doTask() throws Exception {
-		SqlDictionary.getInstance().initSql();
+		ResourceDictionary.getInstance().initSql();
 		createGroups();
 	}
 

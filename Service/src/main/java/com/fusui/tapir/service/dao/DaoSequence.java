@@ -36,7 +36,7 @@ public abstract class DaoSequence {
 			  			prop.load(inputStream);
 			  			inputStream.close();
 						
-						String driver = SqlDictionary.getInstance().getDataSourceProperties().getProperty("com.fusui.tapir.db.driver");
+						String driver = ResourceDictionary.getInstance().getDataSourceProperties().getProperty("com.fusui.tapir.db.driver");
 						
 						if (driver.equals("org.postgresql.Driver") ) {				
 							s_singleton  = new DaoPgSequence();

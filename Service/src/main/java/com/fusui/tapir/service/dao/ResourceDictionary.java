@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import com.fusui.tapir.service.dal.DataSourceFactory;
 
-public class SqlDictionary {
+public class ResourceDictionary {
 
 	enum SqlKey {
 		CREATE_SEQUENCE_SQL,
@@ -48,18 +48,18 @@ public class SqlDictionary {
 		SELECT_MEMBERS_SQL 
 	}
 
-	private static Logger logger = LoggerFactory.getLogger(SqlDictionary.class);
+	private static Logger logger = LoggerFactory.getLogger(ResourceDictionary.class);
 
-	private final static SqlDictionary instance = new SqlDictionary();
+	private final static ResourceDictionary instance = new ResourceDictionary();
 
-	private Properties prop = new Properties();
+	private Properties sqlProp = new Properties();
 	private Properties dsProp = new Properties();
 
-	public static SqlDictionary getInstance() {
+	public static ResourceDictionary getInstance() {
 		return instance;
 	}
 
-	private SqlDictionary() {
+	private ResourceDictionary() {
 		
 		try {
     		InputStream inputStream =  DataSourceFactory.class.getClassLoader().getResourceAsStream("datasource.properties");
@@ -72,9 +72,9 @@ public class SqlDictionary {
     	}
 		
 		try {
-			InputStream inputStream = SqlDictionary.class.getClassLoader().getResourceAsStream("sql.properties");
-			prop = new Properties();
-			prop.load(inputStream);
+			InputStream inputStream = ResourceDictionary.class.getClassLoader().getResourceAsStream("sql.properties");
+			sqlProp = new Properties();
+			sqlProp.load(inputStream);
 			inputStream.close();
 		} catch (Throwable t) {
 			t.printStackTrace();
@@ -87,7 +87,7 @@ public class SqlDictionary {
 	}
 	
 	public String getSqlStmt(SqlKey key) {
-		return prop.getProperty(key.name());
+		return sqlProp.getProperty(key.name());
 	}
 
 	public void initSql() throws SQLException {

@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import com.fusui.tapir.common.dto.VoGroup;
 import com.fusui.tapir.service.dal.TransactionManager;
 import com.fusui.tapir.service.dal.TransactionManager.DaoTransContext;
-import com.fusui.tapir.service.dao.SqlDictionary.SqlKey;
+import com.fusui.tapir.service.dao.ResourceDictionary.SqlKey;
 
 /*
  * @author gko
@@ -78,7 +78,7 @@ public class DaoUser {
 		try {
 			long masterId = DaoSequence.getInstance().getUniqueId();		// get unique id
 			ts = new Timestamp(new Date().getTime());
-			stmt = conn.prepareStatement(SqlDictionary.getInstance().getSqlStmt(SqlKey.APPEND_MASTER_GROUPS_SQL) );
+			stmt = conn.prepareStatement(ResourceDictionary.getInstance().getSqlStmt(SqlKey.APPEND_MASTER_GROUPS_SQL) );
 			stmt.setLong(1, masterId);
 			stmt.setLong(2, tenantId);
 			stmt.setLong(3, userId);
@@ -91,7 +91,7 @@ public class DaoUser {
 			
 			stmt = null;
 			long id = DaoSequence.getInstance().getUniqueId();
-			stmt = conn.prepareStatement(SqlDictionary.getInstance().getSqlStmt(SqlKey.APPEND_GROUPS_SQL));
+			stmt = conn.prepareStatement(ResourceDictionary.getInstance().getSqlStmt(SqlKey.APPEND_GROUPS_SQL));
 			stmt.setLong(1, id);
 			stmt.setLong(2, masterId);		// master ID;
 			stmt.setLong(3, tenantId);
@@ -127,7 +127,7 @@ public class DaoUser {
 
 		try {
 			long sid = DaoSequence.getInstance().getUniqueId();
-			stmt = conn.prepareStatement(SqlDictionary.getInstance().getSqlStmt(SqlKey.APPEND_GROUPS_SQL));
+			stmt = conn.prepareStatement(ResourceDictionary.getInstance().getSqlStmt(SqlKey.APPEND_GROUPS_SQL));
 			stmt.setLong(1, sid);
 			stmt.setLong(2, groupId);		// master ID;
 			stmt.setLong(3, tenantId);
@@ -159,7 +159,7 @@ public class DaoUser {
 
 		try {
 			long sid = DaoSequence.getInstance().getUniqueId();
-			stmt = conn.prepareStatement(SqlDictionary.getInstance().getSqlStmt(SqlKey.DELETE_GROUPS_SQL));
+			stmt = conn.prepareStatement(ResourceDictionary.getInstance().getSqlStmt(SqlKey.DELETE_GROUPS_SQL));
 			stmt.setLong(1, sid);
 			stmt.setLong(2, group.getId());		// master ID;
 			stmt.setLong(3, tenantId);
@@ -186,7 +186,7 @@ public class DaoUser {
 		List<RowGroup> result = new ArrayList<RowGroup>();
 
 		try {
-			stmt = conn.prepareStatement(SqlDictionary.getInstance().getSqlStmt(SqlKey.SELECT_GROUPS_SQL));
+			stmt = conn.prepareStatement(ResourceDictionary.getInstance().getSqlStmt(SqlKey.SELECT_GROUPS_SQL));
 			stmt.setLong(1, tenantId);
 
 			ResultSet rs = stmt.executeQuery();

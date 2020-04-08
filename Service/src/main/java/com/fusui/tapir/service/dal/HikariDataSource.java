@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.zaxxer.hikari.HikariConfig;
 
-public class HikariDataSource implements DataSource {
+public class HikariDataSource implements IDataSource {
 
 	private static final Logger logger = LoggerFactory.getLogger(HikariDataSource.class);
     private  com.zaxxer.hikari.HikariDataSource ds;

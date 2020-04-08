@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.fusui.tapir.service.dal.TransactionManager;
 import com.fusui.tapir.service.dal.TransactionManager.DaoTransContext;
-import com.fusui.tapir.service.dao.SqlDictionary.SqlKey;
+import com.fusui.tapir.service.dao.ResourceDictionary.SqlKey;
 
 // Postgres manual
 // http://www.postgresql.org/docs/8.1/static/sql-createsequence.html
@@ -38,7 +38,7 @@ public class DaoPgSequence extends DaoSequence {
 		ResultSet rs = null;
 		try {
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery(SqlDictionary.getInstance().getSqlStmt(SqlKey.SELECT_SEQUENCE_SQL));
+			rs = stmt.executeQuery(ResourceDictionary.getInstance().getSqlStmt(SqlKey.SELECT_SEQUENCE_SQL));
 			rs.next();
 			int count = rs.getInt(1);
 			return count;
